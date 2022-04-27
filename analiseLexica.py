@@ -2,6 +2,8 @@ import re
 
 arq = open("codigo.txt", "r")
 
+
+# Grupo de palavras e expressões regulares
 operadores = ["+", "-", "*", "/"]
 reservadas = ["const", "while", "if", "#include",
               "<stdio.h>", "int", ";", "return"]
@@ -9,6 +11,8 @@ comandoComparacao = ["==", ">=", "<=", "!=", ">", "<"]
 comandoAtribuicao = ["="]
 delimitadores = ["{", "}", "[", "]", "(", ")"]
 numeros = re.compile(r"\d")
+
+# Tokenização
 tokens = []
 
 for x in arq:
@@ -76,6 +80,8 @@ for x in arq:
         i = i + 1
 arq.close
 
+
+# Classificando os tokens
 arq = open("tokenizacao.txt", "w")
 for x in tokens:
     if x in reservadas:
