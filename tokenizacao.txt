@@ -1,60 +1,50 @@
-#include Reservado
-<stdio.h> Reservado
-int Reservado
-main Variavel/Funcao
-( Delimitador
-) Delimitador
-{ Delimitador
-int Reservado
-a Variavel/Funcao
-= Atribuicao
-1 Numero
-; Reservado
-int Reservado
-b Variavel/Funcao
-= Atribuicao
-3 Numero
-; Reservado
-int Reservado
-c Variavel/Funcao
-= Atribuicao
-00.9 Numero
-; Reservado
-if Reservado
-( Delimitador
-a Variavel/Funcao
-> Comparacao
-b Variavel/Funcao
-) Delimitador
-{ Delimitador
-int Reservado
-soma Variavel/Funcao
-= Atribuicao
-a Variavel/Funcao
-+ Operador
-b Variavel/Funcao
-; Reservado
-} Delimitador
-while Reservado
-( Delimitador
-soma Variavel/Funcao
-< Comparacao
-100 Numero
-) Delimitador
-{ Delimitador
-soma Variavel/Funcao
-= Atribuicao
-soma Variavel/Funcao
-+ Operador
-a Variavel/Funcao
-; Reservado
-} Delimitador
-printf Variavel/Funcao
-( Delimitador
-"Ola mundo!"  Literal
-) Delimitador
-; Reservado
-return Reservado
-0 Numero
-; Reservado
-} Delimitador
+1 #include Reservado
+1 <stdio.h> Reservado
+2 int Reservado
+2 main Variavel/Funcao
+2 () Delimitador
+3 { Delimitador
+4 int Reservado
+4 a Variavel/Funcao
+4 = Atribuicao
+4 3 Numero
+4 ; Reservado
+5 int Reservado
+5 b Variavel/Funcao
+5 = Atribuicao
+5 5 Numero
+5 ; Reservado
+6 int Reservado
+6 x Variavel/Funcao
+6 = Atribuicao
+6 b Variavel/Funcao
+6 - Operador
+6 a Variavel/Funcao
+6 ; Reservado
+7 int Reservado
+7 y Variavel/Funcao
+7 = Atribuicao
+7 c Variavel/Funcao
+7 + Operador
+7 11 Numero
+7 ; Reservado
+8 int Reservado
+8 soma Variavel/Funcao
+8 = Atribuicao
+8 a Variavel/Funcao
+8 + Operador
+8 b Variavel/Funcao
+8 ; Reservado
+9 int Reservado
+9 a Variavel/Funcao
+9 = Atribuicao
+9 b Variavel/Funcao
+9 + Operador
+9 x Variavel/Funcao
+9 * Operador
+9 y Variavel/Funcao
+9 ; Reservado
+10 return Variavel/Funcao
+10 0 Variavel/Funcao
+10 ; Variavel/Funcao
+11 } Variavel/Funcao

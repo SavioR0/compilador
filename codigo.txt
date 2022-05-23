@@ -1,18 +1,11 @@
 #include <stdio.h>
-int main(){
-    int a = 1;
-    int b = 3;
-    int c = 00.9;
-
-    if ( a > b ) {
-        int soma = a + b;
-    }
-
-    while ( soma < 100 ) {
-        soma = soma + a;
-    }
-
-    printf ( "Ola mundo!" );
-
+int main ()
+{
+    int a = 3;
+    int b = 5;
+    int x = b - a;
+    int y = c + 11;
+    int soma = a + b;
+    int a = b + x * y;
     return 0;
 }
