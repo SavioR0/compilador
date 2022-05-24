@@ -23,7 +23,6 @@ class Analysis:
         self.validatorFunc = True
         self.validatorLib = True
         self.validatorVar = True
-        
 
     def reloadValidators(self):
         self.validatorFunc = True
@@ -72,7 +71,7 @@ class Analysis:
 
                 self.validatorVar = False
         # print(token)
-        print(l, " ", self.validatorLib,
+        print(l+1, " ", self.validatorLib,
               self.validatorVar, " | ", self.validatorFunc)
         return None
 

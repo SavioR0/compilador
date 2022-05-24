@@ -191,7 +191,19 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
         # interação 9
         self.a.register(11, "{", 12)
         # interação 10
-        self.a.register(12, "\w", 12)
+        self.a.register(12, names, 12)
+        self.a.register(12, inteiros, 12)
+        self.a.register(12, chars, 12)
+        self.a.register(12, operators, 12)
+        self.a.register(12, floats, 12)
+
+        self.a.register(12, "=", 12)
+
+        self.a.register(12, 'int', 11)
+        self.a.register(12, "float", 12)
+        self.a.register(12, "double", 12)
+        self.a.register(12, "char", 12)
+
         self.a.register(12, "return", 13)
         # interação 11
         self.a.register(13, inteiros, 14)
