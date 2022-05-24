@@ -53,8 +53,10 @@ for x in arq:
             elif ("{" or "}") in lista[i]:
                 if "{" in lista[i]:
                     y = lista[i] .split("{")
-                    tokens.append(str(linha) + " " + y[0])
-                    tokens.append(str(linha) + " " + "{")
+
+                    tokens.append(str(linha-1) + " " + y[0])
+                    tokens.append(str(linha-1) + " " + "{")
+
                 elif "}" in lista[i]:
                     y = lista[i] .split("}")
                     tokens.append(str(linha) + " " + y[0])
