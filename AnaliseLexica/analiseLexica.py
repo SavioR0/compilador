@@ -91,6 +91,7 @@ arq.close
 arq = open("tokenizacao.txt", "w")
 for x in tokens:
     aux = x[2:]
+    aux = aux.strip()
     if aux in reservadas:
         arq.write(x + " Reservado\n")
     elif aux in operadores:

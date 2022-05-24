@@ -154,6 +154,18 @@ class AutomatonDeclarationVariable(AutomatonDeclaration):
         self.a.register_accept(11)
 
 
+class AutomatonDeclarationFunctionFinal(AutomatonDeclaration):
+    def __init__(self):
+        super().__init__(18)
+        self.a.register(0, "return", 1)
+        # interação 11
+        self.a.register(1, inteiros, 2)
+        # interação 12
+        self.a.register(2, ";", 3)
+        # incteração 13
+        self.a.register(4, "}", 5)
+
+
 class AutomatonDeclarationFunction(AutomatonDeclaration):
     def __init__(self):
         super().__init__(23)
@@ -223,6 +235,16 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
 # print(a.accepts("20", isRe=True))
 # print(a.accepts(";"))
 
+# a = AutomatonDeclarationFunctionFinal()
+# print(a.accepts("int"))
+# print(a.accepts("main", isRe=True, isVariable=True))
+# print(a.accepts("()"))
+# print(a.accepts("{"))
+# print(a.accepts("qualquerCoisa", isQualquerCoisa=True))
+# print(a.accepts("return"))
+# print(a.accepts("1", isRe=True))
+# print(a.accepts(";"))
+# print(a.accepts("}"))
 
 # a = AutomatonDeclarationFunction()
 # print(a.accepts("int"))

@@ -18,14 +18,17 @@ class Analysis:
         self.arq = arq
         self.linhas = linhas
         self.currentLine = 0
-        self.automatonLib = AutomatonLib()
 
         self.validatorFunc = True
+        self.validatorFinal = True
+
         self.validatorLib = True
         self.validatorVar = True
 
     def reloadValidators(self):
         self.validatorFunc = True
+        self.validatorFinal = True
+
         self.validatorLib = True
         self.validatorVar = True
 
@@ -42,7 +45,7 @@ class Analysis:
             l = self.increment(l)
             token = self.linhas[l].split()
 
-    def analise(self, token,  l, automatonLib, automatonFunc, automatonVar):
+    def analise(self, token,  l, automatonLib, automatonFunc, automatonVar, automatoFinal):
         #print("TOKEN : ", token[1], " Classe : ", token[2])
         if token[2] == "Variavel/Funcao":
 
@@ -50,6 +53,8 @@ class Analysis:
                 self.validatorLib = False
             if self.validatorFunc == True and automatonFunc.accepts(token[1], isRe=True, isVariable=True) == False:
                 self.validatorFunc = False
+            if self.validatorFinal == True and automatoFinal.accepts(token[1], isRe=True, isVariable=True) == False:
+                self.validatorFinal = False
             if self.validatorVar == True and automatonVar.accepts(token[1], isRe=True, isVariable=True) == False:
                 self.validatorVar = False
         elif token[2] == "Numero" or token[2] == "Operador":
@@ -59,6 +64,8 @@ class Analysis:
                 self.validatorLib = False
             if self.validatorFunc == True and automatonFunc.accepts(token[1], isRe=True) == False:
                 self.validatorFunc = False
+            if self.validatorFinal == True and automatoFinal.accepts(token[1], isRe=True) == False:
+                self.validatorFinal = False
             if self.validatorVar == True and automatonVar.accepts(token[1], isRe=True) == False:
                 self.validatorVar = False
         else:
@@ -67,13 +74,17 @@ class Analysis:
                 self.validatorLib = False
             if self.validatorFunc == True and automatonFunc.accepts(token[1]) == False:
                 self.validatorFunc = False
+            if self.validatorFinal == True and automatoFinal.accepts(token[1]) == False:
+                self.validatorFinal = False
             if self.validatorVar == True and automatonVar.accepts(token[1]) == False:
 
                 self.validatorVar = False
         # print(token)
-        print(l+1, " ", self.validatorLib,
-              self.validatorVar, " | ", self.validatorFunc)
-        return None
+        # print(l+1, " ", self.validatorLib,
+        #       self.validatorVar, " | ", self.validatorFunc, "|", self.validatorFinal)
+        if self.validatorLib or self.validatorVar or self.validatorFunc or self.validatorFinal:
+            return None
+        return False
 
     def analiseLib(self, token, l):
         return False
