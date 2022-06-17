@@ -1,7 +1,7 @@
 from operator import index
 import re
 
-arq = open("codigo.txt", "r")
+arq = open("../compilador/codigos/Código 1.txt", "r")
 
 
 # Grupo de palavras e expressões regulares
@@ -11,7 +11,7 @@ reservadas = ["const", "while", "if", "#include",
 tipos = ["int", "float", "double", "char", "bool"]
 comandoComparacao = ["==", ">=", "<=", "!=", ">", "<"]
 comandoAtribuicao = ["="]
-delimitadores = ["{", "}", "[", "]", "(", ")", "()", ";"]
+delimitadores = ["{", "}", "[", "]", "(", ")", "()", ";", ","]
 numeros = re.compile(r"\d")
 
 # Tokenização

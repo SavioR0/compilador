@@ -163,7 +163,12 @@ class AutomatonDeclarationVariable(AutomatonDeclaration):
         self.a.register(17, ";", 13)
 
         # Interação 5
-        self.a.register(10, ";", 13)
+        self.a.register(10, ",", 1)
+        self.a.register(11, ",", 2)
+        self.a.register(12, ",", 3)
+
+        self.a.register(16, ",", 1)
+        self.a.register(17, ",", 2)
 
         self.a.register_accept(13)
 
@@ -177,11 +182,13 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
 
     def __init__(self, **kwargs):
         super().__init__(23)
+        self.variables = []
         if kwargs.get('current') is not None:
             self.currentState = kwargs.get('current')
         else:
             self.currentState = 0
-        this.accept_States = self.a.accept_states
+
+        self.accept_States = self.a.accept_states
 
         # interação 1
         self.a.register(0, "int", 17)
@@ -224,6 +231,7 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
         self.a.register(12, floats, 12)
 
         self.a.register(12, "=", 12)
+        self.a.register(12, ',', 12)
 
         self.a.register(12, 'int', 12)
         self.a.register(12, "float", 12)
@@ -231,6 +239,8 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
         self.a.register(12, "char", 12)
 
         self.a.register(12, ";", 12)
+        self.a.register(12, "(", 12)
+        self.a.register(12, ")", 12)
 
         self.a.register(12, "return", 13)
         # interação 11
@@ -247,10 +257,13 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
 # print(aut.accepts("int"))
 # print(aut.accepts("azukl", isRe=True, isVariable=True))
 # print(aut.accepts("="))
-
 # print(aut.accepts("20", isRe=True))
 # print(aut.accepts("+", isRe=True))
 # print(aut.accepts("20", isRe=True))
+# print(aut.accepts(","))
+# print(aut.accepts("azul", isRe=True, isVariable=True))
+# print(aut.accepts("="))
+# print(aut.accepts("25", isRe=True))
 # print(aut.accepts(";"))
 # print("A validação do automato é : ", aut.a.accept_states[aut.currentState])
 

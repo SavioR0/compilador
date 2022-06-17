@@ -1,3 +1,5 @@
+from tkinter import CURRENT
+from wsgiref.validate import validator
 from errors import error
 from automato import AutomatonDeclarationFunction, AutomatonDeclarationVariable, AutomatonLib
 
@@ -37,8 +39,8 @@ class Analysis:
     def increment(self, x):
         return x+1
 
-    def printLine(self, token, l, aut):
-        print("   +----------------------------------------------+")
+    def printLine(self, token, l, type, lastState):
+        print("   +----------------------------------------------+\n")
         print("    -Erro encontrado na linha ",
               token[0], " -> ", token[1], end=" ")
         l = self.increment(l)
@@ -47,7 +49,7 @@ class Analysis:
             print(token[1], end=" ")
             l = self.increment(l)
             token = self.linhas[l].split()
-        error(aut, self.a.currentState)
+        error(type, lastState)
         print("\n   +----------------------------------------------+\n")
 
     def loadArq(self):
@@ -67,26 +69,43 @@ class Analysis:
             token = self.linhas[l].split()
             if self.currentLine != token[0]:
                 self.currentLine = token[0]
-            print("COLOCANDO TOKEN : ", token[1])
+            #print("COLOCANDO TOKEN : ", token[1])
             if self.a.accepts(token[1]) == False:
-                self.printLine(token, l, lib)
+                self.printLine(token, l, "Sintático", self.a.a.lastAccept[0])
                 return
             l = l + 1
         return l
 
     def compareToken(self, token, l, type, aut):
         if token[2] == "Variavel/Funcao":
-            if aut.accepts(token[1], isRe=True, isVariable=True) == False:
-                # print("variavel :", token[1])
-                self.printLine(token, l, type)
+            if token[1] in self.b.variables and aut == self.c and aut.currentState == 0:
+                self.c.currentState = 1
+                print("CURRENT : ", self.c.currentState)
+            validator = aut.accepts(token[1], isRe=True, isVariable=True)
+            if (validator == False) or ((validator == True) and (aut == self.c) and ((self.c.currentState != 4 and self.c.currentState != 5 and self.c.currentState != 6) and (token[1] not in self.b.variables))):
+                print("variavel :", token[1],
+                      " State : ", self.c.a.lastAccept[0], " ", self.a.currentState)
+                print(self.b.variables)
+                if validator == False:
+                    self.printLine(token, l, "Sintático",
+                                   self.c.a.lastAccept[0])
+                else:
+                    self.printLine(token, l, "Semantico",
+                                   self.c.a.lastAccept[0])
+
                 return False
+            # print("variavel :", token[1], " Ultimo : ", self.c.a.lastAccept[0])
+            if (aut == self.c) and (self.c.currentState == 4 or self.c.currentState == 5 or self.c.currentState == 6) and token[1] not in self.b.variables:
+                # print("Adicionando variavel : ",
+                #      token[1], " State : ", self.c.a.lastAccept[0])
+                self.b.variables.append(token[1])
         elif token[2] == "Numero" or token[2] == "Operador":
             if aut.accepts(token[1], isRe=True) == False:
-                self.printLine(token, l, type)
+                self.printLine(token, l, "Sintático", aut.a.lastAccept[0])
                 return False
         else:
             if aut.accepts(token[1]) == False:
-                self.printLine(token, l, type)
+                self.printLine(token, l, "Sintático", aut.a.lastAccept[0])
                 return False
         return True
 
@@ -106,7 +125,8 @@ class Analysis:
                     return
             elif token[1] != "return":
                 if self.b.accepts(token[1], isQualquerCoisa=True) == False:
-                    self.printLine(token, l, func)
+                    self.printLine(token, l, "Sintático",
+                                   self.b.a.lastAccept[0])
                     return
 
             # print("Currentline ", self.currentLine, " ", token[1])
@@ -118,11 +138,12 @@ class Analysis:
             token = self.linhas[l].split()
             if self.currentLine != token[0]:
                 if self.c.a.accept_states[self.c.currentState] == False:
-                    self.printLine(token, l, type)
+                    self.printLine(token, l, "Sintático",
+                                   self.c.a.lastAccept[0])
                     return
                 self.currentLine = token[0]
                 self.c.currentState = 0
-            #print("COLOCANDO TOKEN VAR : ", token[1])
+            # print("COLOCANDO TOKEN VAR : ", token[1])
             if self.compareToken(token=token, l=l, type=var, aut=self.c) == False:
                 return
             # print("Currentline ", self.currentLine, " ", token[1])
@@ -134,15 +155,20 @@ class Analysis:
         if self.state == 0:
             l = self.analiseLib(token, l)
             self.state = self.state + 1
+            if l == None:
+                return
             return l-1
         elif self.state == 1:
             l = self.analiseFunction(token, l)
             self.state = self.state + 1
-            print("Linha : ", l)
+            if l == None:
+                return
             return l-2
         else:
             l = self.analiseVariable(token, l)
             self.state = self.state + 1
+            if l == None:
+                return
             return l
         # elif self.state == 1:
         #     l = self.analiseFunction(token, l)
