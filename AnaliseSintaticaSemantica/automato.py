@@ -1,5 +1,7 @@
 from ast import operator
+from pprint import pprint
 import re
+import this
 
 inteiros = "[0-9]*"
 floats = "[\d*].[\d*]"
@@ -30,6 +32,8 @@ class Automaton:
     def accept(self, state, token):
         try:
             state = self.transitions[state][token]
+            print("STATE :", state)
+
             self.lastAccept = [state, token]
             return state
         except KeyError:
@@ -58,8 +62,9 @@ class AutomatonLib:
 class AutomatonDeclaration():
     def __init__(self, nStates):
         self.a = Automaton(nStates)
-        self.registers()
         self.currentState = 0
+        self.validator = True
+        self.registers()
 
     def registers(self):
         # Interação 2
@@ -103,26 +108,35 @@ class AutomatonDeclaration():
 
     def accepts(self, token, isRe=False, isVariable=False, isQualquerCoisa=False):
         result = False
-        if isQualquerCoisa:
-            result = self.currentState
-        elif isRe and isVariable:
-            if (re.match(names, token)) != None:
-                result = self.a.accept(self.currentState, names)
-        elif isRe:
-            result = self.analysisRe(token)
+        # self.currentState = 0
+        if self.validator == True:
+            if isQualquerCoisa:
+                result = self.currentState
+            elif isRe and isVariable:
+                if (re.match(names, token)) != None:
+                    result = self.a.accept(self.currentState, names)
+                    print('STATE : ', result)
+            elif isRe:
+                result = self.analysisRe(token)
 
-        else:
-            result = self.a.accept(self.currentState, token)
+            else:
+                result = self.a.accept(self.currentState, token)
 
         if result == False or result == None:
+            self.validator = False
             return False
         self.currentState = result
         return True
 
 
 class AutomatonDeclarationVariable(AutomatonDeclaration):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__(18)
+        if kwargs.get('current') is not None:
+            self.currentState = kwargs.get('current')
+        else:
+            self.currentState = 0
+        this.accept_States = self.a.accept_states
         # Interação 1
         self.a.register(0, 'int', 1)
         self.a.register(0, "float", 2)
@@ -149,26 +163,26 @@ class AutomatonDeclarationVariable(AutomatonDeclaration):
         self.a.register(17, ";", 13)
 
         # Interação 5
-        self.a.register(10, ";", 11)
+        self.a.register(10, ";", 13)
 
-        self.a.register_accept(11)
-
-
-class AutomatonDeclarationFunctionFinal(AutomatonDeclaration):
-    def __init__(self):
-        super().__init__(18)
-        self.a.register(0, "return", 1)
-        # interação 11
-        self.a.register(1, inteiros, 2)
-        # interação 12
-        self.a.register(2, ";", 3)
-        # incteração 13
-        self.a.register(4, "}", 5)
+        self.a.register_accept(13)
 
 
 class AutomatonDeclarationFunction(AutomatonDeclaration):
-    def __init__(self):
+    # def __init__(self, **kwargs):
+    #     super().__init__(18)
+    #     if kwargs.get('current_state'):
+    #         self.currentState = kwargs.get('current_state')
+    #     self.registers()
+
+    def __init__(self, **kwargs):
         super().__init__(23)
+        if kwargs.get('current') is not None:
+            self.currentState = kwargs.get('current')
+        else:
+            self.currentState = 0
+        this.accept_States = self.a.accept_states
+
         # interação 1
         self.a.register(0, "int", 17)
         self.a.register(0, "float", 18)
@@ -211,10 +225,12 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
 
         self.a.register(12, "=", 12)
 
-        self.a.register(12, 'int', 11)
+        self.a.register(12, 'int', 12)
         self.a.register(12, "float", 12)
         self.a.register(12, "double", 12)
         self.a.register(12, "char", 12)
+
+        self.a.register(12, ";", 12)
 
         self.a.register(12, "return", 13)
         # interação 11
@@ -224,27 +240,19 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
         # incteração 13
         self.a.register(15, "}", 16)
 
+        self.a.register_accept(16)
 
-# a = AutomatonDeclarationVariable()
-# print(a.accepts("int"))
-# print(a.accepts("azukl", isRe=True, isVariable=True))
-# print(a.accepts("="))
 
-# print(a.accepts("20", isRe=True))
-# print(a.accepts("+", isRe=True))
-# print(a.accepts("20", isRe=True))
-# print(a.accepts(";"))
+# aut = AutomatonDeclarationVariable()
+# print(aut.accepts("int"))
+# print(aut.accepts("azukl", isRe=True, isVariable=True))
+# print(aut.accepts("="))
 
-# a = AutomatonDeclarationFunctionFinal()
-# print(a.accepts("int"))
-# print(a.accepts("main", isRe=True, isVariable=True))
-# print(a.accepts("()"))
-# print(a.accepts("{"))
-# print(a.accepts("qualquerCoisa", isQualquerCoisa=True))
-# print(a.accepts("return"))
-# print(a.accepts("1", isRe=True))
-# print(a.accepts(";"))
-# print(a.accepts("}"))
+# print(aut.accepts("20", isRe=True))
+# print(aut.accepts("+", isRe=True))
+# print(aut.accepts("20", isRe=True))
+# print(aut.accepts(";"))
+# print("A validação do automato é : ", aut.a.accept_states[aut.currentState])
 
 # a = AutomatonDeclarationFunction()
 # print(a.accepts("int"))
@@ -256,8 +264,11 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
 # print(a.accepts("1", isRe=True))
 # print(a.accepts(";"))
 # print(a.accepts("}"))
+# print(a.accepts(";"))
+# print("A validação do automato é : ", a.a.accept_states[a.currentState])
 
 
 # a = AutomatonLib()
 # print(a.accepts("#include"))
-# print(a.accepts("<stdio.h>"))
+# # print(a.accepts("<stdio.h>"))
+# print("A validação do automato é : ", a.a.accept_states[a.currentState])

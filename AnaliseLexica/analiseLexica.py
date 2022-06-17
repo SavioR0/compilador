@@ -7,7 +7,8 @@ arq = open("codigo.txt", "r")
 # Grupo de palavras e expressões regulares
 operadores = ["+", "-", "*", "/"]
 reservadas = ["const", "while", "if", "#include",
-              "<stdio.h>", "int", "return"]
+              "<stdio.h>", "return"]
+tipos = ["int", "float", "double", "char", "bool"]
 comandoComparacao = ["==", ">=", "<=", "!=", ">", "<"]
 comandoAtribuicao = ["="]
 delimitadores = ["{", "}", "[", "]", "(", ")", "()", ";"]
@@ -94,6 +95,8 @@ for x in tokens:
     aux = aux.strip()
     if aux in reservadas:
         arq.write(x + " Reservado\n")
+    elif aux in tipos:
+        arq.write(x + " Tipo\n")
     elif aux in operadores:
         arq.write(x + " Operador\n")
     elif aux in comandoComparacao:
@@ -108,6 +111,7 @@ for x in tokens:
         arq.write(x + " Numero\n")
     elif aux != "":
         arq.write(x + " Variavel/Funcao\n")
+arq.close()
 
 print("\n+------ ANÁLISE LÉXICA FINALIZADA ---------+")
 print("|    Arquivo resultado: \"tokenizacao.txt\"  |")
