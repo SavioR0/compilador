@@ -1,11 +1,11 @@
 from operator import index
 import re
 
-arq = open("../compilador/codigos/Código 1.txt", "r")
+arq = open("../compilador/codigos/Código 10.txt", "r")
 
 
 # Grupo de palavras e expressões regulares
-operadores = ["+", "-", "*", "/"]
+operadores = ["+", "-", "*", "/", "%"]
 reservadas = ["const", "while", "if", "#include",
               "<stdio.h>", "return"]
 tipos = ["int", "float", "double", "char", "bool"]
