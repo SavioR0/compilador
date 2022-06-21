@@ -19,13 +19,15 @@
 4 , Delimitador
 4 d Variavel/Funcao
 4 = Atribuicao
-4 0, Numero
+4 0 Numero
+4 , Delimitador
 4 e Variavel/Funcao
 4 = Atribuicao
 4 0 Numero
 4 ; Delimitador
 6 a Variavel/Funcao
 6 = Atribuicao
+6 "zero" Literal
 6 / Operador
 6 "zero" Literal
 6 ; Delimitador

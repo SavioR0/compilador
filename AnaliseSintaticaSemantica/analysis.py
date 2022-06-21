@@ -1,7 +1,5 @@
-from tkinter import CURRENT
-from wsgiref.validate import validator
-from errors import error
-from automato import AutomatonDeclarationFunction, AutomatonDeclarationVariable, AutomatonLib
+from AnaliseSintaticaSemantica.automato import AutomatonDeclarationFunction, AutomatonDeclarationVariable, AutomatonLib
+from AnaliseSintaticaSemantica.errors import error
 
 lib = 1
 var = 2
@@ -40,8 +38,8 @@ class Analysis:
         return x+1
 
     def printLine(self, token, l, type, lastState, palavra):
-        print("   +----------------------------------------------+\n")
-        print("    -Erro encontrado na linha ",
+        print("+---------------------ERROR---------------------------+")
+        print(" -Erro encontrado na linha ",
               token[0], " -> ", token[1], end=" ")
         l = self.increment(l)
         token = self.linhas[l].split()
@@ -50,7 +48,7 @@ class Analysis:
             l = self.increment(l)
             token = self.linhas[l].split()
         error(type, lastState, palavra)
-        print("\n   +----------------------------------------------+\n")
+        print("+----------------------------------------------------+")
 
     def loadArq(self):
         l = 0
@@ -63,6 +61,7 @@ class Analysis:
                 return
             # print("Currentline ", self.currentLine, " ", token[1])
             l = l + 1
+        return True
 
     def analiseLib(self, token, l):
         while l < 2:
@@ -88,11 +87,19 @@ class Analysis:
                 #      " State : ", self.c.a.lastAccept[0], " ", self.a.currentState)
                 # print(self.b.variables)
                 if validator == False:
-                    self.printLine(token, l, "Sintático",
-                                   self.c.a.lastAccept[0], token[1])
+                    if self.c.a.lastAccept != None:
+                        self.printLine(token, l, "Sintático",
+                                       self.c.a.lastAccept[0], token[1])
+                    else:
+                        self.printLine(token, l, "Sintático",
+                                       None, token[1])
                 else:
-                    self.printLine(token, l, "Semantico",
-                                   self.c.a.lastAccept[0], token[1])
+                    if self.c.a.lastAccept != None:
+                        self.printLine(token, l, "Semântico",
+                                       self.c.a.lastAccept[0], token[1])
+                    else:
+                        self.printLine(token, l, "Semântico",
+                                       None, token[1])
 
                 return False
             # print("variavel :", token[1], " Ultimo : ", self.c.a.lastAccept[0])
@@ -107,7 +114,7 @@ class Analysis:
                 return False
         else:
             if aut.accepts(token[1]) == False:
-                self.printLine(token, l, "Sintático",
+                self.printLine(token, l, "Semântico",
                                aut.a.lastAccept[0], token[1])
                 return False
         return True

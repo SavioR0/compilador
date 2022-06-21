@@ -1,16 +1,14 @@
-from analysis import Analysis
 
 
-def main():
-    print("\n\n\n\n")
+from AnaliseSintaticaSemantica.analysis import Analysis
+
+
+def sintaticaSemantica():
+    print("\n")
     arq = open("tokenizacao.txt", "r")
     analise = Analysis(arq, arq.readlines())
 
     #print("Arquivo tem %d linhas " % len(analise.linhas))
-    analise.loadArq()
-
-    # print("\n+------ ANÁLISE LÉXICA FINALIZADA ---------+")
-    # print("+------------------------------------------+\n")
-
-
-main()
+    if analise.loadArq() == True:
+        print("+------ ANÁLISE SINTÁTICA E SEMÂNTICA FINALIZADA --------+")
+        print("+--------------------------------------------------------+\n")
