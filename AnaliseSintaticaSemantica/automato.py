@@ -3,11 +3,13 @@ import re
 inteiros = "[0-9]*"
 floats = "[\d*].[\d*]"
 doubles = "[\d*].[\d*]"
-chars = "[\"^(0-9)\"]"
+chars = '""'
 operators = "[+*/-]"
 
 names = "\D[a-zA-z0-9]*"
-#names = "^\D"
+numeros = r"[0-9][\.]?[^\,]"
+
+# names = "^\D"
 
 
 def increment(x):
@@ -29,7 +31,7 @@ class Automaton:
     def accept(self, state, token):
         try:
             state = self.transitions[state][token]
-            print("STATE :", state)
+            #print("STATE :", state, " Token : ", token)
 
             self.lastAccept = [state, token]
             return state
@@ -89,9 +91,10 @@ class AutomatonDeclaration():
 
     def analysisRe(self, token):
         result = False
-        # if (re.match(chars, token)) != None:
-        #     print("token : ", token)
-        #     result = self.a.accept(self.currentState, chars)
+        #print("TOKEN : ", token)
+        if (re.match(chars, token)) != None:
+            #print("LENDO CHAR : ", token)
+            result = self.a.accept(self.currentState, chars)
         #     return result
         if (re.match(operators, token)) != None and result == False:
             result = self.a.accept(self.currentState, operators)
@@ -101,7 +104,7 @@ class AutomatonDeclaration():
             result = self.a.accept(self.currentState, doubles)
         if (re.match(inteiros, token)) != None and result == False:
             result = self.a.accept(self.currentState, inteiros)
-
+        # print(result)
         return result
 
     def accepts(self, token, isRe=False, isVariable=False, isQualquerCoisa=False):
@@ -113,7 +116,7 @@ class AutomatonDeclaration():
             elif isRe and isVariable:
                 if (re.match(names, token)) != None:
                     result = self.a.accept(self.currentState, names)
-                    print('STATE : ', result)
+                    #print('STATE : ', result)
             elif isRe:
                 result = self.analysisRe(token)
 
@@ -211,7 +214,7 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
         else:
             self.currentState = 0
 
-        #self.accept_States = self.a.accept_states
+        # self.accept_States = self.a.accept_states
 
         # interação 1
         self.a.register(0, "int", 17)
@@ -276,7 +279,7 @@ class AutomatonDeclarationFunction(AutomatonDeclaration):
         self.a.register_accept(16)
 
 
-#a = b + c - 7 * e / a * d - a + 10 / ( c + d + 10 );
+# a = b + c - 7 * e / a * d - a + 10 / ( c + d + 10 );
 # aut = AutomatonDeclarationVariable()
 # print(aut.accepts("int"))
 # print(aut.accepts("a",  isRe=True, isVariable=True))
