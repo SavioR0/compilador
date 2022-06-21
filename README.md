@@ -35,3 +35,14 @@ A análise sintática foram usados três autômatos para representar as estrutur
   <img src=https://github.com/SavioR0/compilador/issues/2#issue-1277717647>
 
 Todos os testes realizados para a validação do compilador foram feitos a partir dos códigos disponibilizados na pasta "codigos", os quais apresentam alguns erros comuns na validação semântico. 
+
+## Obstáculos
+Pela disponibilidade de tempo e a grande carga horário já dedicada ao trabalho alguns pontos ficaram faltando na entrega final. Com isso, a função for por exemplo, antes presente no código 4 foi excluída.
+
+Todos warnings que são considerados em compiladores C foram identificados como erros, portanto é feita a interrompção da compilação quando é encontrado.
+
+Todas as variáveis não declaradas e que são usadas são identificadas e relatados os erros semânticos. 
+
+No código de teste 6 a divisão por zero não é considerada como erro em nenhuma das análises, por ocorrer apenas um "Floating point exception".
+
+Aspas duplas e aspas simples foram considerados como representação de vetores de caracteres.
