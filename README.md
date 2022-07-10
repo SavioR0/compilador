@@ -27,9 +27,11 @@ Ex: lexica("../compilador/codigos/Codigo 10.txt")
 A execução do arquivo principal, retornará os resultados obtidos pela compilação.
 
 ## Análise léxica
- A análise léxica foi desenvolvida a partir do aquivo "codigo.txt", ou seja, um ambiente controlado. Para tanto foram implementadas na análise a leitura dos símbolos respeitando o quadro a seguir:
+ A análise léxica foi desenvolvida a partir do aquivo "codigo.txt", ou seja, um ambiente controlado. Para tanto, foram implementadas na análise a leitura dos símbolos respeitando o quadro a seguir:
 
  <img src="arquivos\quadro.png">
+
+ Obs : Funções "while", "for", "if" e "const" não foram implementados nas análises sintática e semântica.  
 
 ## Análise Sintática e Semântica
 A análise sintática foram usados três autômatos para representar as estruturas de declaração das bibliotecas, funções e expressões juntamente com a declaração de variáveis. A ilustração a seguir mostra como ficou a modelagem.
@@ -41,9 +43,9 @@ Todos os testes realizados para a validação do compilador foram feitos a parti
 A conversão de C para Python foi realizado a partir dos resultados obtidos nas etapas anterioes e salvos no arquivo "codigoPython.txt". Ou seja, caso o código não seja semanticamente válido, não será executado o código de conversão de C para python. 
 
 ## Obstáculos
-Pela indisponibilidade de tempo e a grande carga horária já dedicada ao trabalho, alguns pontos ficaram faltando na entrega final. Com isso, a função for por exemplo, antes presente no código 4 foi excluída. Além disso, o ultimo código enviado pelo professor, com comentários e declarados mais funções não foram adicionados e implementado no código final.
+Pela indisponibilidade de tempo e a grande carga horária já dedicada ao trabalho, alguns pontos ficaram faltando na entrega final. Com isso, a função for por exemplo, antes presente no código 4 foi excluída. Além disso, o ultimo código enviado pelo professor, com comentários e declaração de mais funções não foram adicionados e implementado no código final.
 
-Todos warnings que são considerados em compiladores C foram identificados como erros, portanto é feita a interrompção da compilação quando é encontrado.
+Todos warnings que são considerados em compiladores C foram identificados como erros, portanto é feita a interrupção da compilação quando é encontrado.
 
 Todas as variáveis não declaradas e que são usadas em alguma expressão são identificadas e relatados os erros semânticos. 
 
