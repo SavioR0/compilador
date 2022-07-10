@@ -12,3 +12,5 @@ def sintaticaSemantica():
     if analise.loadArq() == True:
         print("+------ ANÁLISE SINTÁTICA E SEMÂNTICA FINALIZADA --------+")
         print("+--------------------------------------------------------+\n")
+        return True
+    return False

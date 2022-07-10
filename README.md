@@ -5,6 +5,7 @@ Trabalho prático de compiladores feito em python para a linguagem C em um cená
 <li>Análise léxica</li>
 <li>Análise Sintática</li>
 <li>Análise Semântica</li>
+<li>Conversão do código C para Python</li>
 
 </ul>
 
@@ -36,12 +37,15 @@ A análise sintática foram usados três autômatos para representar as estrutur
 
 Todos os testes realizados para a validação do compilador foram feitos a partir dos códigos disponibilizados na pasta "codigos", os quais apresentam alguns erros comuns na validação semântico. 
 
+## Conversão
+A conversão de C para Python foi realizado a partir dos resultados obtidos nas etapas anterioes e salvos no arquivo "codigoPython.txt". Ou seja, caso o código não seja semanticamente válido, não será executado o código de conversão de C para python. 
+
 ## Obstáculos
-Pela disponibilidade de tempo e a grande carga horário já dedicada ao trabalho alguns pontos ficaram faltando na entrega final. Com isso, a função for por exemplo, antes presente no código 4 foi excluída.
+Pela indisponibilidade de tempo e a grande carga horária já dedicada ao trabalho, alguns pontos ficaram faltando na entrega final. Com isso, a função for por exemplo, antes presente no código 4 foi excluída. Além disso, o ultimo código enviado pelo professor, com comentários e declarados mais funções não foram adicionados e implementado no código final.
 
 Todos warnings que são considerados em compiladores C foram identificados como erros, portanto é feita a interrompção da compilação quando é encontrado.
 
-Todas as variáveis não declaradas e que são usadas são identificadas e relatados os erros semânticos. 
+Todas as variáveis não declaradas e que são usadas em alguma expressão são identificadas e relatados os erros semânticos. 
 
 No código de teste 6 a divisão por zero não é considerada como erro em nenhuma das análises, por ocorrer apenas um "Floating point exception".
 
